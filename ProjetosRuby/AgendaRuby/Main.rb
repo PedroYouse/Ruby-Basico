@@ -10,6 +10,12 @@
     {nome:"Pedro", telefone: "11111112"}
 ]
 
+#Exibi contatos do txt
+def ler_agenda
+    agenda = File.read('agenda.txt')
+    puts "Seus contatos:\n#{agenda}"
+end
+
 #Função de exibir os contatos existentes na tela.
 def contatos
     puts "---------------------------------------------------------------------------"
@@ -27,6 +33,12 @@ def adicionar_contatos
     print("Telefone:")
     telefone = gets.chomp
     @agenda << {nome:nome, telefone:telefone}
+
+
+    #Salva os novos contatos em txt
+    File.open('agenda.txt', 'a') do |out|
+        out.puts "nome: #{nome}\ntelefone: #{telefone}"
+    end
     puts "---------------------------------------------------------------------------"
 end
 
@@ -89,6 +101,7 @@ loop do
         break
     when codigo == 1
         contatos
+        ler_agenda
     when codigo == 2
         adicionar_contatos
     when codigo == 3
